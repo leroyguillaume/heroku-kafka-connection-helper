@@ -29,7 +29,7 @@ public class HerokuKafkaConnectionHelperTests {
     envVars.set("KAFKA_CLIENT_CERT", getFileContents("test.cert"));
     envVars.set("KAFKA_CLIENT_CERT_KEY", getFileContents("test.key"));
 
-    Properties props = HerokuKafkaConnectionHelper.getProperties();
+    Properties props = HerokuKafkaConnectionHelper.getConfigProperties();
 
     assertThat(props.getProperty(SECURITY_PROTOCOL_CONFIG), equalTo("SSL"));
     assertThat(props.getProperty(BOOTSTRAP_SERVERS_CONFIG), equalTo("1.1.1.1:1,2.2.2.2:2,3.3.3.3:3"));
@@ -45,7 +45,7 @@ public class HerokuKafkaConnectionHelperTests {
   public void plaintextConfiguration() throws Exception {
     envVars.set("KAFKA_URL", "kafka://1.1.1.1:1,kafka://2.2.2.2:2,kafka://3.3.3.3:3");
 
-    Properties props = HerokuKafkaConnectionHelper.getProperties();
+    Properties props = HerokuKafkaConnectionHelper.getConfigProperties();
 
     assertThat(props.getProperty(SECURITY_PROTOCOL_CONFIG), equalTo("PLAINTEXT"));
     assertThat(props.getProperty(BOOTSTRAP_SERVERS_CONFIG), equalTo("1.1.1.1:1,2.2.2.2:2,3.3.3.3:3"));

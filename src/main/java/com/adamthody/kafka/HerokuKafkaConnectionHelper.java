@@ -17,7 +17,7 @@ public class HerokuKafkaConnectionHelper {
 
   private static final String KAFKA_SSL_SCHEME = "kafka+ssl";
 
-  public static Properties getProperties() {
+  public static Properties getConfigProperties() {
     String kafkaUrl = System.getenv(HerokuKafkaEnvVars.KAFKA_URL);
 
     Properties properties = new Properties();
@@ -50,7 +50,7 @@ public class HerokuKafkaConnectionHelper {
   }
 
   public static Map<String, Object> getConfigMap() {
-    Properties properties = getProperties();
+    Properties properties = getConfigProperties();
 
     return properties.entrySet().stream().collect(
         Collectors.toMap(

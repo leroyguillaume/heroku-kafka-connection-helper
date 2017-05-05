@@ -26,7 +26,7 @@ Heroku Kafka uses SSL by default, but by setting `KAFKA_URL` locally, you can al
 plaintext connection for local development without having to modify code.
 
 ```java
-Properties properties = HerokuKafkaConnectionHelper.getProperties();
+Properties properties = HerokuKafkaConnectionHelper.getConfigProperties();
 ... // Additional properties
 KafkaConsumer<Integer, String> consumer = new KafkaConsumer<>(properties);
 ```
