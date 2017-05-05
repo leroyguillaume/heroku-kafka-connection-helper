@@ -1,0 +1,34 @@
+# Heroku Kafka Connection Helper
+
+A Java library to help configure Kafka client connection Properties from Heroku Kafka environment variables.
+
+## Usage
+
+Include this library in your application as a Maven dependency:
+
+```xml
+<dependency>
+  <groupId>com.adamthody</groupId>
+  <artifactId>heroku-kafka-connection-helper</artifactId>
+  <version>0.1.0</version>
+</dependency>
+```
+
+### Configuring a Client
+
+Calling `HerokuKafkaConnectionHelper.getProperties()` will return a Properties object that has the appropriate connection
+properties set, as per the environment variables available. 
+
+Based on the URL scheme of the `KAFKA_URL` environment variable, the properties will either be for a simple plaintext 
+connection, or it will configure an SSL connection, including the KeyStore and TrustStore.
+ 
+Heroku Kafka uses SSL by default, but by setting `KAFKA_URL` locally, you can also test against a local cluster with a 
+plaintext connection for local development without having to modify code.
+
+```java
+Properties properties = HerokuKafkaConnectionHelper.getProperties();
+properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class.getName());
+properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+...
+KafkaConsumer<Integer, String> consumer = new KafkaConsumer<>(properties);
+```

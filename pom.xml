@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.adamthody</groupId>
+    <artifactId>heroku-kafka-connection-helper</artifactId>
+    <version>0.1.0</version>
+    <url>https://github.com/thody/heroku-kafka-connection-helper</url>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://github.com/thody/heroku-kafka-connection-helper/blob/master/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://github.com/thody/heroku-kafka-connection-helper</url>
+        <connection>scm:git:git@github.com:thody/heroku-kafka-connection-helper.git</connection>
+        <developerConnection>scm:git:git@github.com:thody/heroku-kafka-connection-helper.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+    <developers>
+        <developer>
+            <id>thody</id>
+            <name>Adam Thody</name>
+            <email>adam@adamthody.com</email>
+        </developer>
+    </developers>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/thody/heroku-kafka-connection-helper/issues/new</url>
+    </issueManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.jkutner</groupId>
+            <artifactId>env-keystore</artifactId>
+            <version>0.1.2</version>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.stefanbirkner</groupId>
+            <artifactId>system-rules</artifactId>
+            <version>1.16.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
