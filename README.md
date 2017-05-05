@@ -27,8 +27,6 @@ plaintext connection for local development without having to modify code.
 
 ```java
 Properties properties = HerokuKafkaConnectionHelper.getProperties();
-properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class.getName());
-properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-...
+... // Additional properties
 KafkaConsumer<Integer, String> consumer = new KafkaConsumer<>(properties);
 ```
