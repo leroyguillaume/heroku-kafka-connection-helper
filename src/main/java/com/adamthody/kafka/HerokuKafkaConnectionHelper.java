@@ -9,6 +9,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
@@ -46,6 +47,16 @@ public class HerokuKafkaConnectionHelper {
     }
 
     return properties;
+  }
+
+  public static Map<String, Object> getConfigMap() {
+    Properties properties = getProperties();
+
+    return properties.entrySet().stream().collect(
+        Collectors.toMap(
+            e -> (String) e.getKey(),
+            Map.Entry::getValue
+        ));
   }
 
   private static String buildBootstrapServersConfig(String kafkaUrl) {

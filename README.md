@@ -30,3 +30,12 @@ Properties properties = HerokuKafkaConnectionHelper.getProperties();
 ... // Additional properties
 KafkaConsumer<Integer, String> consumer = new KafkaConsumer<>(properties);
 ```
+
+If you're using Spring's `ProducerFactory` or `ConsumerFactory`, you may prefer to get your connection configuration as 
+a Map.
+ 
+ ```java
+ Map<String, Object> configMap = HerokuKafkaConnectionHelper.getConfigMap();
+ ... // Additional properties
+ ProducerFactory<Integer, String> producer = new DefaultKafkaProducerFactory<>(configMap);
+```

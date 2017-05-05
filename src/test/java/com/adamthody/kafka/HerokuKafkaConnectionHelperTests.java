@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.Properties;
 
 import static com.adamthody.kafka.HerokuKafkaConnectionHelper.ConnectionConfigs.*;
@@ -48,6 +49,16 @@ public class HerokuKafkaConnectionHelperTests {
 
     assertThat(props.getProperty(SECURITY_PROTOCOL_CONFIG), equalTo("PLAINTEXT"));
     assertThat(props.getProperty(BOOTSTRAP_SERVERS_CONFIG), equalTo("1.1.1.1:1,2.2.2.2:2,3.3.3.3:3"));
+  }
+
+  @Test
+  public void configurationAsMap() throws Exception {
+    envVars.set("KAFKA_URL", "kafka://1.1.1.1:1,kafka://2.2.2.2:2,kafka://3.3.3.3:3");
+
+    Map<String, Object> props = HerokuKafkaConnectionHelper.getConfigMap();
+
+    assertThat(props.get(SECURITY_PROTOCOL_CONFIG), equalTo("PLAINTEXT"));
+    assertThat(props.get(BOOTSTRAP_SERVERS_CONFIG), equalTo("1.1.1.1:1,2.2.2.2:2,3.3.3.3:3"));
   }
 
   private String getFileContents(String filename) throws URISyntaxException, IOException {
