@@ -10,7 +10,7 @@ Include this library in your application as a Maven dependency:
 <dependency>
   <groupId>com.adamthody</groupId>
   <artifactId>heroku-kafka-connection-helper</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.8</version>
 </dependency>
 ```
 
