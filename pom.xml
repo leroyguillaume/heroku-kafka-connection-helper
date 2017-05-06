@@ -4,7 +4,7 @@
 
     <groupId>com.adamthody</groupId>
     <artifactId>heroku-kafka-connection-helper</artifactId>
-    <version>0.1.2</version>
+    <version>0.1.3-SNAPSHOT</version>
     <url>https://github.com/thody/heroku-kafka-connection-helper</url>
     <licenses>
         <license>
