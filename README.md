@@ -16,7 +16,7 @@ Include this library in your application as a Maven dependency:
 
 ### Configuring a Client
 
-Calling `HerokuKafkaConnectionHelper.getProperties()` will return a Properties object that has the appropriate connection
+Calling `HerokuKafkaConnectionHelper.getConfigProperties()` will return a Properties object that has the appropriate connection
 properties set, as per the environment variables available. 
 
 Based on the URL scheme of the `KAFKA_URL` environment variable, the properties will either be for a simple plaintext 

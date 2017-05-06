@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.contrib.java.lang.system.EnvironmentVariables;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -49,6 +50,18 @@ public class HerokuKafkaConnectionHelperTests {
 
     assertThat(props.getProperty(SECURITY_PROTOCOL_CONFIG), equalTo("PLAINTEXT"));
     assertThat(props.getProperty(BOOTSTRAP_SERVERS_CONFIG), equalTo("1.1.1.1:1,2.2.2.2:2,3.3.3.3:3"));
+  }
+
+  @Test
+  public void plaintextConfigurationNoScheme() throws Exception {
+    envVars.set("KAFKA_URL", "localhost:9092");
+
+    Properties props = HerokuKafkaConnectionHelper.getConfigProperties();
+
+    URI uri = URI.create("localhost:9092");
+
+    assertThat(props.getProperty(SECURITY_PROTOCOL_CONFIG), equalTo("PLAINTEXT"));
+    assertThat(props.getProperty(BOOTSTRAP_SERVERS_CONFIG), equalTo("localhost:9092"));
   }
 
   @Test
