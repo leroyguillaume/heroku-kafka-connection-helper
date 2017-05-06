@@ -8,6 +8,10 @@
     <name>Heroku Kafka Connection Helper</name>
     <description>A Java library to help configure Kafka client connection Properties from Heroku Kafka environment variables.</description>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <url>https://github.com/thody/heroku-kafka-connection-helper</url>
     <licenses>
         <license>
