@@ -13,9 +13,11 @@ import java.util.Map;
 import java.util.Properties;
 
 import static com.adamthody.kafka.HerokuKafkaConnectionHelper.ConnectionConfigs.*;
+import static org.hamcrest.core.StringContains.containsString;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 public class HerokuKafkaConnectionHelperTest {
 
@@ -39,6 +41,22 @@ public class HerokuKafkaConnectionHelperTest {
     assertNotNull(props.getProperty(SSL_KEYSTORE_TYPE_CONFIG));
     assertNotNull(props.getProperty(SSL_KEYSTORE_LOCATION_CONFIG));
     assertNotNull(props.getProperty(SSL_KEYSTORE_PASSWORD_CONFIG));
+  }
+
+  @Test
+  public void missingKafkaUrlEnvVar() throws Exception {
+    try {
+      HerokuKafkaConnectionHelper.getConfigProperties();
+      fail();
+    } catch (Exception e) {
+      assertThat(e.getMessage(), containsString("KAFKA_URL"));
+    }
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void missingSSLEnvironmentVariables() throws Exception {
+    envVars.set("KAFKA_URL", "kafka+ssl://1.1.1.1:1,kafka+ssl://2.2.2.2:2,kafka+ssl://3.3.3.3:3");
+    HerokuKafkaConnectionHelper.getConfigProperties();
   }
 
   @Test

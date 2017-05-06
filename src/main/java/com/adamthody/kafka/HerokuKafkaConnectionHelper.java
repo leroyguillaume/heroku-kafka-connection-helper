@@ -18,12 +18,18 @@ public class HerokuKafkaConnectionHelper {
   private static final String KAFKA_SSL_SCHEME = "kafka+ssl";
 
   public static Properties getConfigProperties() {
+    assertEnvVarPresent(HerokuKafkaEnvVars.KAFKA_URL, "KAFKA_URL must not be null");
+
     String kafkaUrl = System.getenv(HerokuKafkaEnvVars.KAFKA_URL);
 
     Properties properties = new Properties();
     properties.put(ConnectionConfigs.BOOTSTRAP_SERVERS_CONFIG, buildBootstrapServersConfig(kafkaUrl));
 
     if (shouldUseSSL(kafkaUrl)) {
+      assertEnvVarPresent(HerokuKafkaEnvVars.KAFKA_CLIENT_CERT, "KAFKA_CLIENT_CERT must not be null");
+      assertEnvVarPresent(HerokuKafkaEnvVars.KAFKA_CLIENT_CERT_KEY, "KAFKA_CLIENT_CERT_KEY must not be null");
+      assertEnvVarPresent(HerokuKafkaEnvVars.KAFKA_TRUSTED_CERT, "KAFKA_TRUSTED_CERT must not be null");
+
       try {
         EnvKeyStore envTrustStore = EnvKeyStore.createWithRandomPassword(HerokuKafkaEnvVars.KAFKA_TRUSTED_CERT);
         EnvKeyStore envKeyStore = EnvKeyStore.createWithRandomPassword(HerokuKafkaEnvVars.KAFKA_CLIENT_CERT_KEY, HerokuKafkaEnvVars.KAFKA_CLIENT_CERT);
@@ -68,6 +74,12 @@ public class HerokuKafkaConnectionHelper {
 
   private static boolean shouldUseSSL(String kafkaUrl) {
     return kafkaUrl.contains(KAFKA_SSL_SCHEME);
+  }
+
+  private static void assertEnvVarPresent(String envVarKey, String errorMessage) {
+    if (System.getenv(envVarKey) == null) {
+      throw new IllegalArgumentException(errorMessage);
+    }
   }
 
   private class HerokuKafkaEnvVars {
