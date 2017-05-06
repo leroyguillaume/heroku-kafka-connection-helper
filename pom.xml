@@ -4,7 +4,7 @@
 
     <groupId>com.adamthody</groupId>
     <artifactId>heroku-kafka-connection-helper</artifactId>
-    <version>0.1.8</version>
+    <version>0.1.9-SNAPSHOT</version>
     <name>Heroku Kafka Connection Helper</name>
     <description>A Java library to help configure Kafka client connection Properties from Heroku Kafka environment variables.</description>
 
@@ -36,7 +36,7 @@
         <url>https://github.com/thody/heroku-kafka-connection-helper</url>
         <connection>scm:git:git@github.com:thody/heroku-kafka-connection-helper.git</connection>
         <developerConnection>scm:git:git@github.com:thody/heroku-kafka-connection-helper.git</developerConnection>
-        <tag>heroku-kafka-connection-helper-0.1.8</tag>
+        <tag>heroku-kafka-connection-helper-0.1.2</tag>
     </scm>
     <developers>
         <developer>
