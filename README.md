@@ -1,4 +1,4 @@
-# Heroku Kafka Connection Helper [![Build Status](https://travis-ci.org/thody/heroku-kafka-connection-helper.svg?branch=master)](https://travis-ci.org/thody/heroku-kafka-connection-helper)
+# Heroku Kafka Connection Helper [![Build Status](https://travis-ci.org/thody/heroku-kafka-connection-helper.svg?branch=master)](https://travis-ci.org/thody/heroku-kafka-connection-helper) [![Maven Central](https://img.shields.io/maven-central/v/com.adamthody/heroku-kafka-connection-helper.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.adamthody%22%20AND%20a%3A%22heroku-kafka-connection-helper%22)
 
 A Java library to help configure Kafka client connection Properties from Heroku Kafka environment variables.
 
