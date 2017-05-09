@@ -4,7 +4,6 @@ import com.github.jkutner.EnvKeyStore;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -67,9 +66,13 @@ public class HerokuKafkaConnectionHelper {
 
   private static String buildBootstrapServersConfig(String kafkaUrl) {
     return Arrays.stream(kafkaUrl.split(","))
-        .map(URI::create)
-        .map(uri -> String.format("%s:%d", uri.getHost(), uri.getPort()))
+        .map(HerokuKafkaConnectionHelper::stripScheme)
         .collect(Collectors.joining(","));
+  }
+
+  private static String stripScheme(String url) {
+    String urlSchemeRegex = "([a-z]*\\+?[a-z]*)://";
+    return url.replaceFirst(urlSchemeRegex, "");
   }
 
   private static boolean shouldUseSSL(String kafkaUrl) {

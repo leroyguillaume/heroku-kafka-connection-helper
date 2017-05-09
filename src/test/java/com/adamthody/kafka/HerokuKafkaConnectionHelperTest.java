@@ -54,7 +54,7 @@ public class HerokuKafkaConnectionHelperTest {
 
   @Test
   public void sslConfiguration() throws Exception {
-    envVars.set("KAFKA_URL", "kafka+ssl://1.1.1.1:1,kafka+ssl://2.2.2.2:2,kafka+ssl://3.3.3.3:3");
+    envVars.set("KAFKA_URL", "kafka+ssl://1.1.1.1:1,kafka+ssl://somehost:2,kafka+ssl://domain.com:3");
     envVars.set("KAFKA_TRUSTED_CERT", TEST_CERT);
     envVars.set("KAFKA_CLIENT_CERT", TEST_CERT);
     envVars.set("KAFKA_CLIENT_CERT_KEY", TEST_KEY);
@@ -62,7 +62,7 @@ public class HerokuKafkaConnectionHelperTest {
     Properties props = HerokuKafkaConnectionHelper.getConfigProperties();
 
     assertThat(props.getProperty(SECURITY_PROTOCOL_CONFIG), equalTo("SSL"));
-    assertThat(props.getProperty(BOOTSTRAP_SERVERS_CONFIG), equalTo("1.1.1.1:1,2.2.2.2:2,3.3.3.3:3"));
+    assertThat(props.getProperty(BOOTSTRAP_SERVERS_CONFIG), equalTo("1.1.1.1:1,somehost:2,domain.com:3"));
     assertNotNull(props.getProperty(SSL_TRUSTSTORE_TYPE_CONFIG));
     assertNotNull(props.getProperty(SSL_TRUSTSTORE_LOCATION_CONFIG));
     assertNotNull(props.getProperty(SSL_TRUSTSTORE_PASSWORD_CONFIG));
@@ -95,6 +95,26 @@ public class HerokuKafkaConnectionHelperTest {
 
     assertThat(props.getProperty(SECURITY_PROTOCOL_CONFIG), equalTo("PLAINTEXT"));
     assertThat(props.getProperty(BOOTSTRAP_SERVERS_CONFIG), equalTo("1.1.1.1:1,2.2.2.2:2,3.3.3.3:3"));
+  }
+
+  @Test
+  public void noSchemeHostnameConfiguration() throws Exception {
+    envVars.set("KAFKA_URL", "localhost:9092");
+
+    Properties props = HerokuKafkaConnectionHelper.getConfigProperties();
+
+    assertThat(props.getProperty(SECURITY_PROTOCOL_CONFIG), equalTo("PLAINTEXT"));
+    assertThat(props.getProperty(BOOTSTRAP_SERVERS_CONFIG), equalTo("localhost:9092"));
+  }
+
+  @Test
+  public void noSchemeIPConfiguration() throws Exception {
+    envVars.set("KAFKA_URL", "192.168.0.1:9092");
+
+    Properties props = HerokuKafkaConnectionHelper.getConfigProperties();
+
+    assertThat(props.getProperty(SECURITY_PROTOCOL_CONFIG), equalTo("PLAINTEXT"));
+    assertThat(props.getProperty(BOOTSTRAP_SERVERS_CONFIG), equalTo("192.168.0.1:9092"));
   }
 
   @Test
